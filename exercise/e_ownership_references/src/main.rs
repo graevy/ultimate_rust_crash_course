@@ -15,17 +15,34 @@ fn main() {
     // String reference
     //
 
+    fn inspect(stringo: &String) {
+        println!("{}", stringo.ends_with("s"));
+    }
+
+    inspect(&arg);
+
     // 2. Write a function `change` that takes a *mutable* reference to a String and adds an "s" to
     // the String if it doesn't already end with "s". Then uncomment and run the code below with
     // `cargo run apple`.  Hint: use `.push_str("s")` on the mutable String reference to add an "s".
     //
+
+    fn change(stringy: &mut String) {
+        if !stringy.ends_with("s") {
+            stringy.push_str("s")
+        };
+    }
+
+    change(&mut arg);
     println!("I have many {}", arg);
 
     // 3. Write a function `eat` that accepts ownership of (consumes) a String and returns a bool
     // indicating whether or not the String both starts with a "b" AND contains an "a".
     // Hint 1: use `.starts_with("b")` and `.contains("a")`
     // Hint 2: `&&` is the boolean "AND" operator
-    //
+
+    fn eat(food: String) -> bool {
+        food.starts_with("b") && food.contains("a")
+    }
 
     if eat(arg) {
        println!("Might be bananas");
@@ -38,31 +55,11 @@ fn main() {
     // Challenge: Write a function "add" that takes *references* to two integer arguments,
     // dereferences them and adds them together, and returns the result.
     //
-    println!("1 + 2 = {}, even via references", add(&1, &2));
-}
+    // println!("1 + 2 = {}, even via references", add(&1, &2));
 
-fn inspect(arg: &String) {
-    if arg.ends_with("s") {
-        println!("plural!")
-    } else {
-        println!("singular")
+    fn add(x: &i32, y: &i32) {
+        println!("{}", *x + *y)
     }
-}
 
-fn change(arg: &mut String) {
-    if arg.ends_with("s") {
-        arg.push_str("s")
-    }
-}
-
-fn eat(arg: String) -> bool {
-    if arg.starts_with("b") && arg.contains("a") {
-        return true;
-    } else{
-        return false;
-    }
-}
-
-fn add(x: &i32, y: &i32) -> i32 {
-    x+y
+    add(&5, &9);
 }
